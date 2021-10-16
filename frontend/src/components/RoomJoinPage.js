@@ -1,18 +1,13 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { TextField, Button, Grid, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-export default class RoomJoinPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      roomCode: "",
-      error: "",
-    };
-    this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
-    this.roomButtonPressed = this.roomButtonPressed.bind(this);
-  }
-  render() {
+export default function RoomJoinPage(props) {
+  const [roomCode, setRoomCode] = useState("")
+  const [error, setError] = useState("")
+
+
+
     return (
       <Grid container spacing={1}>
         <Grid item xs={12} align="center">
@@ -22,20 +17,20 @@ export default class RoomJoinPage extends Component {
         </Grid>
         <Grid item xs={12} align="center">
           <TextField
-            error={this.state.error}
+            error={error}
             label="Code"
             placeholder="Enter a Room Code"
-            value={this.state.roomCode}
-            helperText={this.state.error}
+            value={roomCode}
+            helperText={error}
             variant="outlined"
-            onChange={this.handleTextFieldChange}
+            onChange={handleTextFieldChange}
           />
         </Grid>
         <Grid item xs={12} align="center">
           <Button
             variant="contained"
             color="primary"
-            onClick={this.roomButtonPressed}
+            onClick={roomButtonPressed}
           >
             Enter Room
           </Button>
@@ -47,34 +42,26 @@ export default class RoomJoinPage extends Component {
         </Grid>
       </Grid>
     )
+
+
+  function handleTextFieldChange(e) {
+    setRoomCode(e.target.value)
   }
 
-  handleTextFieldChange(e) {
-    this.setState({
-      roomCode: e.target.value
-    })
-  }
-
-  handleTextFieldChange(e) {
-    this.setState({
-      roomCode: e.target.value,
-    });
-  }
-
-  roomButtonPressed() {
+  function roomButtonPressed() {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        code: this.state.roomCode,
+        code: roomCode,
       }),
     };
     fetch("/api/join-room", requestOptions)
       .then((response) => {
         if (response.ok) {
-          this.props.history.push(`/room/${this.state.roomCode}`);
+          props.history.push(`/room/${roomCode}`);
         } else {
-          this.setState({ error: "Room not found." });
+          setError("Room not found.");
         }
       })
       .catch((error) => {
