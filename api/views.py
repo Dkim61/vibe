@@ -8,8 +8,6 @@ from django.http import JsonResponse
 
 
 # Create your views here.
-
-
 class RoomView(generics.ListAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
@@ -63,7 +61,9 @@ class CreateRoomView(APIView):
         if serializer.is_valid():
             guest_can_pause = serializer.data.get('guest_can_pause')
             votes_to_skip = serializer.data.get('votes_to_skip')
+            # using the users session_key as the host attribute
             host = self.request.session.session_key
+            # in the queryset, Room is filtering with host as the foreign key
             queryset = Room.objects.filter(host=host)
             if queryset.exists():
                 room = queryset[0]
@@ -122,6 +122,7 @@ class UpdateRoom(APIView):
             # checking if the person updating room is the host
             room = queryset[0]
             user_id = self.request.session.session_key
+            # checking for host based on session_key
             if room.host != user_id:
                 return Response({'msg': 'You are not the host of this room. '}, status=status.HTTP_400_BAD_REQUEST)
             

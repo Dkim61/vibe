@@ -47,10 +47,10 @@ export default function MusicPlayer(props) {
           </Grid>
           <Grid item align="center" xs={8}>
             <Typography component="h5" variant="h5">
-              {props.title}
+              {props.title ? props.title : "No Song Playing"}
             </Typography>
             <Typography color="textSecondary" variant="subtitle1">
-              {props.artist}
+              {props.artist ? props.artist : ""}
             </Typography>
             <div>
               <IconButton

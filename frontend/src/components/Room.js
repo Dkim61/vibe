@@ -243,6 +243,19 @@ export default class Room extends Component {
   }
 
   leaveButtonPressed() {
+    if (this.state.isHost) {
+      // Logout spotify from Frontend but does nothing
+      const url = 'https://accounts.spotify.com/en/logout'                                                                                                                                                                                                                                                                               
+      const spotifyLogoutWindow = window.open(url, 'Spotify Logout', 'width=700,height=500,top=40,left=40')                                                                           
+      setTimeout(() => spotifyLogoutWindow.close(), 2000)
+      // This is where user is actually logging out
+      const requestOptions = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+      };
+      fetch("/spotify/logout", requestOptions);
+    }
+
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -251,6 +264,7 @@ export default class Room extends Component {
       this.props.leaveRoomCallback();
       this.props.history.push("/");
     });
+
   }
 
   updateShowSettings(value) {
@@ -298,6 +312,18 @@ export default class Room extends Component {
     );
   }
 
+  renderHostNavBar() {
+    return (
+      <Grid container spacing={1}>
+      <Grid item xs={12} align="center">
+        <Typography variant="h4" component="h4">
+          WELCOME HOST {this.isHost}
+        </Typography>
+      </Grid>
+      </Grid>
+    )
+  }
+
   render() {
     if (this.state.showSettings) {
       return this.renderSettings();
@@ -305,8 +331,9 @@ export default class Room extends Component {
     return (
       <Grid container spacing={1}>
         <Grid item xs={12} align="center">
+          {this.state.isHost ? this.renderHostNavBar() : null}
           <Typography variant="h4" component="h4">
-            Code: {this.roomCode}
+            YOU ARE VIBING IN THE ROOM: {this.roomCode}
           </Typography>
         </Grid>
         <MusicPlayer {...this.state.song} />
@@ -317,7 +344,7 @@ export default class Room extends Component {
             color="secondary"
             onClick={this.leaveButtonPressed}
           >
-            Leave Room
+            {this.state.isHost ? 'Leave Room and Logout from Spotify' : "Leave This Room"}
           </Button>
         </Grid>
       </Grid>

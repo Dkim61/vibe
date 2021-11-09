@@ -63,6 +63,19 @@ class IsAuthenticated(APIView):
         return Response({'status': is_authenticated}, status=status.HTTP_200_OK)
 
 
+class LogOutUser(APIView):
+    def put(self, response, format=None):
+        room_code = self.request.session.get('room_code')
+        room = Room.objects.filter(code=room_code)[0]
+        if self.request.session.session_key == room.host:
+            print("YOOOOOOOOOOOOOOOOO")
+            logout_spotify_user(self.request.session.session_key)
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        return Response({}, status=status.HTTP_403_FORBIDDEN)
+
+
+
 # get info of the current song playing
 class CurrentSong(APIView):
     def get(self, request, format=None):
@@ -144,7 +157,7 @@ class PlaySong(APIView):
 
 # handles votes (post bc its is updating database)
 class SkipSong(APIView):
-    def post(self, reuest, format=None):
+    def post(self, request, format=None):
         # we need this for host's access token
         room_code = self.request.session.get('room_code')
         room = Room.objects.filter(code=room_code)[0]

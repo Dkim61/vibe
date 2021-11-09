@@ -4,6 +4,7 @@ from datetime import timedelta
 from .credentials import CLIENT_ID, CLIENT_SECRET
 from requests import post, put, get
 
+
 BASE_URL = "https://api.spotify.com/v1/me/"
 
 # check for existing tokens
@@ -43,6 +44,25 @@ def is_spotify_authenticated(session_id):
         return True
 
     return False
+
+# logs user out
+def logout_spotify_user(session_id):
+    user_tokens = SpotifyToken.objects.filter(user=session_id)
+    print("USER TOKENS:" + str(user_tokens))
+    if user_tokens.exists():
+        print("TOKENS" + str(user_tokens))
+        user_tokens.delete()
+
+# def logout_spotify_user(session_id):
+#     # tokens = get_user_tokens(session_id)
+#     # print('am i truthy??', bool(tokens))
+#     # if bool(tokens):
+#     #     print("SUPPPPPPPPP")
+#     #     for token in SpotifyToken.objects:
+#     #         if token == SpotifyToken.objects.filter(user=session_id):
+#     #             del token
+#     #             print("HIIIIIIIIIIIIIIIIII")
+        
 
 # refreshes the token
 def refresh_spotify_token(session_id):
