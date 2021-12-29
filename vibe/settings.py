@@ -25,7 +25,7 @@ SECRET_KEY = '1kzo3x18jndb^mr6pc94@7b&mot7r3zwf%^0cnf)kck(ng#blu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
 
 # Application definition
@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 3rd party
+    'npm',
     'rest_framework',
+    # 'material-ui/',
+
     # local
     'api.apps.ApiConfig',
     'frontend.apps.FrontendConfig',
@@ -128,3 +131,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+

@@ -19,6 +19,17 @@ html, body {
 
 .center {
   position: absolute;
+  background-image: url('https://papers.co/wallpaper/papers.co-sf98-ipad-itunes-rainbow-el-capitan-gradation-blur-29-wallpaper.jpg');
+  height: 750px;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.HomePage {
+  position: absolute;
+  width: 50%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
