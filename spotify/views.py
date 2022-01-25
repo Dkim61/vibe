@@ -8,6 +8,7 @@ from api.models import Room
 from .models import Vote
 from .util import *
 
+
 # Create your views here.
 
 # step 1 for auth, this api endpoint will return a url that we can go to authenticate our application

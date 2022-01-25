@@ -43,7 +43,8 @@ export default function MusicPlayer(props) {
       <Card>
         <Grid container alignItems="center">
           <Grid item align="center" xs={4}>
-            <img src={props.image_url= "https://label-engine.com/news/wp-content/uploads/2017/07/Spotify-Logo-Square.jpg"} height="100%" width="100%" />
+            <img src= {props.image_url ? props.image_url : "https://label-engine.com/news/wp-content/uploads/2017/07/Spotify-Logo-Square.jpg"}
+ height="100%" width="100%" />
           </Grid>
           <Grid item align="center" xs={8}>
             <Typography component="h5" variant="h5">

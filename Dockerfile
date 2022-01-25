@@ -12,6 +12,7 @@ WORKDIR /code
 COPY Pipfile Pipfile.lock /code/
 RUN pip install pipenv && pipenv install --system
 RUN pip install requests
+RUN pip install python-decouple
 RUN pipenv install npm
 
 # RUN pipenv npm install @mui/material 
