@@ -33,6 +33,12 @@ export default function Info(props) {
             <Typography component="h4" variant="h4">
             What is Vibez?
             </Typography>
+            <Typography component="h4" variant="h4">
+            Vibez is the perfect companion for your next party or social gathering that needs some Tunes!
+            A User can create a room where they sign in through Spotify and can invite their guests.
+            After the User sets up the settings of the room, guests can enter by entering the room code.
+            Guests can see the information of the current song being played and even vote to skip the song!
+            </Typography>
         </Grid>
         <Grid item xs={12} align="center">
             <Typography variant="body=1">

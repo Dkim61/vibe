@@ -64,7 +64,7 @@ export default function HomePage(props) {
   function renderHomePage() {
     return (
       <Grid container spacing={3}>
-      <ImageList sx={{ width: 500, height: 500 }} cols={3} rowHeight={145}>
+      <ImageList sx={{ width: 400, height: 400 }} cols={3} rowHeight={200}>
       {shuffle(displayAlbums).map((cover) => (
         <ImageListItem key={cover.img}>
           <img
